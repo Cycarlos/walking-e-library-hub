@@ -3,51 +3,148 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Walking E-Library Hub — Student Dashboard</title>
+
+  <title>Walking E-Library Hub — Dashboard</title>
+
   <style>
-    body { margin:0; font-family:Arial,sans-serif; background:#f3f6fb; }
-    header { background:#1d4ed8; color:white; padding:18px 24px; display:flex; justify-content:space-between; align-items:center; }
-    main { max-width:900px; margin:30px auto; padding:0 18px; }
-    .card { background:white; padding:24px; border-radius:16px; margin-bottom:18px; box-shadow:0 5px 20px rgba(0,0,0,.06); }
-    button { padding:10px 15px; border:0; border-radius:9px; cursor:pointer; }
-  </style>
-</head>
-<body>
-  <header>
-    <strong>Walking E-Library Hub</strong>
-    <button id="logout">Log out</button>
-  </header>
-
-  <main>
-    <section class="card">
-      <h1>Student Dashboard</h1>
-      <p id="welcome">Loading...</p>
-      <p id="email"></p>
-      <p id="role"></p>
-    </section>
-
-    <section class="card">
-      <h2>Your E-Library</h2>
-      <p>This protected area is where your books, reviewers, and learning resources can be placed.</p>
-    </section>
-  </main>
-
-  <script type="module">
-    import { getCurrentProfile, getCurrentUser, requireAuth, signOut } from "./auth.js";
-
-    await requireAuth();
-
-    const user = await getCurrentUser();
-    const profile = await getCurrentProfile();
-
-    if (user && profile) {
-      document.querySelector("#welcome").textContent =
-        `Welcome, ${profile.full_name || "Student"}!`;
-      document.querySelector("#email").textContent = `Email: ${user.email}`;
-      document.querySelector("#role").textContent = `Account: ${profile.role}`;
+    * {
+      box-sizing: border-box;
     }
 
-    document.querySelector("#logout").addEventListener("click", signOut);
-  </script>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f6fb;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 18px 24px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 18px;
+    }
+
+    .card {
+      background: white;
+      padding: 28px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    .info {
+      line-height: 1.8;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: 0;
+      border-radius: 9px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <strong>Walking E-Library Hub</strong>
+  <button id="logout">Log out</button>
+</header>
+
+<main>
+
+  <section class="card">
+
+    <h1>Student Dashboard</h1>
+
+    <p id="welcome">Loading...</p>
+
+    <div class="info">
+      <strong>LRN:</strong>
+      <span id="lrn">Loading...</span>
+      <br>
+
+      <strong>Grade Level:</strong>
+      <span id="gradeLevel">Loading...</span>
+      <br>
+
+      <strong>Section:</strong>
+      <span id="section">Loading...</span>
+      <br>
+
+      <strong>Account:</strong>
+      <span id="role">Loading...</span>
+    </div>
+
+  </section>
+
+  <section class="card">
+
+    <h2>Your E-Library</h2>
+
+    <p>
+      This protected area is where your books, reviewers,
+      and learning resources can be placed.
+    </p>
+
+  </section>
+
+</main>
+
+<script type="module">
+
+import { requireAuth, getCurrentProfile, signOut } from "./auth.js";
+
+const user = await requireAuth();
+
+if (!user) {
+  throw new Error("Not authenticated");
+}
+
+const profile = await getCurrentProfile();
+
+if (!profile) {
+  document.getElementById("welcome").textContent =
+    "Could not load your profile.";
+
+  throw new Error("Profile not found");
+}
+
+document.getElementById("welcome").textContent =
+  `Welcome, ${profile.full_name || "Student"}!`;
+
+document.getElementById("lrn").textContent =
+  profile.lrn || "Not available";
+
+document.getElementById("gradeLevel").textContent =
+  profile.grade_level || "Not available";
+
+document.getElementById("section").textContent =
+  profile.section || "Not available";
+
+document.getElementById("role").textContent =
+  profile.role || "student";
+
+document.getElementById("logout").addEventListener(
+  "click",
+  signOut
+);
+
+</script>
+
 </body>
 </html>
