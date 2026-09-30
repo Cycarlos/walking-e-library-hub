@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Walking E-Library Hub — Admin</title>
+  <style>
+    body { margin:0; font-family:Arial,sans-serif; background:#f3f6fb; }
+    header { background:#111827; color:white; padding:18px 24px; display:flex; justify-content:space-between; align-items:center; }
+    main { max-width:1000px; margin:30px auto; padding:0 18px; }
+    .card { background:white; padding:24px; border-radius:16px; box-shadow:0 5px 20px rgba(0,0,0,.06); }
+    table { width:100%; border-collapse:collapse; margin-top:15px; }
+    th,td { padding:12px; border-bottom:1px solid #ddd; text-align:left; }
+    button { padding:10px 15px; border:0; border-radius:9px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Walking E-Library Hub — Admin</strong>
+    <button id="logout">Log out</button>
+  </header>
+
+  <main>
+    <section class="card">
+      <h1>Student Accounts</h1>
+      <p id="status">Loading...</p>
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Role</th><th>Created</th></tr>
+        </thead>
+        <tbody id="students"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script type="module">
+    import { supabase } from "./supabase.js";
+    import { requireAdmin, signOut } from "./auth.js";
+
+    const profile = await requireAdmin();
+    if (!profile) throw new Error("Not authorized");
+
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("id, full_name, role, created_at")
+      .order("created_at", { ascending: false });
+
+    const status = document.querySelector("#status");
+    const tbody = document.querySelector("#students");
+
+    if (error) {
+      status.textContent = error.message;
+    } else {
+      status.textContent = `${data.length} profile(s) found.`;
+      tbody.innerHTML = data.map(row => `
+        <tr>
+          <td>${escapeHtml(row.full_name || "Unnamed")}</td>
+          <td>${escapeHtml(row.role)}</td>
+          <td>${new Date(row.created_at).toLocaleString()}</td>
+        </tr>
+      `).join("");
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"
+      }[char]));
+    }
+
+    document.querySelector("#logout").addEventListener("click", signOut);
+  </script>
+</body>
+</html>
