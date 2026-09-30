@@ -200,7 +200,7 @@ signupForm.addEventListener("submit", async function(event) {
     message.style.color = "#333";
 
     // Hidden email used only internally by Supabase
-    const internalEmail = `${lrn}@walkingelibrary.local`;
+    const internalEmail = `${lrn}@walkingelibraryhub.com`;
 
     const { data, error } = await supabase.auth.signUp({
         email: internalEmail,
