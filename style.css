@@ -1,0 +1,78 @@
+
+/* Walking E-Library Hub — Navy & Violet Theme */
+
+:root {
+  color-scheme: dark;
+  --navy: #090d2b;
+  --card: #171b49;
+  --violet: #9865ff;
+  --lavender: #c7b5ff;
+  --white: #f7f7ff;
+}
+
+html {
+  min-height: 100%;
+  background: var(--navy);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--white);
+  background:
+    radial-gradient(ellipse at 15% 15%,
+      rgba(87, 70, 210, 0.38), transparent 42%),
+    radial-gradient(ellipse at 85% 65%,
+      rgba(130, 55, 220, 0.25), transparent 40%),
+    linear-gradient(145deg, #070b25, #17164b 55%, #0b1235);
+  background-attachment: fixed;
+}
+
+/* Forms and information panels */
+form,
+.card,
+[class*="card"],
+[class*="panel"] {
+  border-color: rgba(160, 125, 255, 0.45);
+}
+
+/* Inputs */
+input,
+select,
+textarea {
+  color: var(--white);
+  background-color: rgba(8, 12, 39, 0.85);
+  border: 1px solid #55518a;
+  border-radius: 10px;
+  padding: 12px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--violet);
+  outline-offset: 2px;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+button:hover {
+  filter: brightness(1.15);
+}
+
+/* Responsive layout */
+img {
+  max-width: 100%;
+}
+
+@media (max-width: 600px) {
+  body {
+    background-attachment: scroll;
+  }
+}
