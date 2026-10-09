@@ -1,245 +1,224 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Walking E-Library Hub - Sign Up</title>
 
-    <title>Walking E-Library Hub - Sign Up</title>
+  <link rel="stylesheet" href="style.css">
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
+  <style>
+    * { box-sizing: border-box; }
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 24px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      color: #f7f5ff;
+      background:
+        radial-gradient(ellipse at 15% 15%, rgba(87,70,210,.38), transparent 45%),
+        radial-gradient(ellipse at 85% 75%, rgba(130,55,220,.3), transparent 45%),
+        linear-gradient(145deg, #070b25, #17164b 55%, #0b1235);
+    }
 
-            min-height: 100vh;
-        }
+    .signup-box {
+      width: min(480px, 92vw);
+      padding: 30px;
+      background: rgba(20,24,68,.96);
+      color: #f7f5ff;
+      border: 1px solid rgba(164,125,255,.55);
+      border-top: 4px solid #9865ff;
+      border-radius: 22px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+    }
 
-        .signup-box {
-            width: 350px;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
+    h1 {
+      text-align: center;
+      color: #ffffff;
+      font-size: clamp(25px, 5vw, 32px);
+      margin: 0 0 10px;
+    }
 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        }
+    .subtitle {
+      text-align: center;
+      color: #c7b5ff;
+      margin-bottom: 25px;
+    }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 10px;
-        }
+    input, select {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 15px;
+      color: #ffffff;
+      background: #0b1030;
+      border: 1px solid #625a99;
+      border-radius: 10px;
+      font-size: 15px;
+    }
 
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 25px;
-        }
+    input::placeholder { color: #c2bddb; }
 
-        input,
-        select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
+    select option {
+      color: #ffffff;
+      background: #171b49;
+    }
 
-            box-sizing: border-box;
+    input:focus, select:focus {
+      outline: 2px solid #9865ff;
+      outline-offset: 2px;
+    }
 
-            border: 1px solid #ccc;
-            border-radius: 6px;
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(110deg, #315be8, #8654e9);
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-            font-size: 14px;
-        }
+    button:hover { filter: brightness(1.12); }
 
-        button {
-            width: 100%;
-            padding: 12px;
+    .login {
+      text-align: center;
+      color: #e6e1ff;
+      margin-top: 22px;
+    }
 
-            border: none;
-            border-radius: 6px;
+    .login a {
+      color: #c7b5ff;
+      text-decoration: none;
+    }
 
-            background: #1e3a8a;
-            color: white;
+    .login a:hover { text-decoration: underline; }
 
-            cursor: pointer;
-            font-size: 16px;
-        }
+    #message {
+      text-align: center;
+      margin-top: 15px;
+      overflow-wrap: anywhere;
+    }
 
-        button:hover {
-            background: #172554;
-        }
-
-        .login {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .login a {
-            color: #1e3a8a;
-            text-decoration: none;
-        }
-
-        #message {
-            text-align: center;
-            margin-top: 15px;
-        }
-    </style>
+    @media (max-width: 480px) {
+      .signup-box { padding: 24px 20px; }
+    }
+  </style>
 </head>
-    <link rel="stylesheet" href="style.css">
-
 <body>
 
-<div class="signup-box">
-
+  <main class="signup-box">
     <h1>Walking E-Library Hub</h1>
-
     <p class="subtitle">Create Student Account</p>
 
     <form id="signupForm">
+      <input type="text" id="lrn" placeholder="LRN"
+        maxlength="12" inputmode="numeric" required>
 
-        <input
-            type="text"
-            id="lrn"
-            placeholder="LRN"
-            maxlength="12"
-            inputmode="numeric"
-            required
-        >
+      <input type="text" id="fullName" placeholder="Full Name" required>
 
-        <input
-            type="text"
-            id="fullName"
-            placeholder="Full Name"
-            required
-        >
+      <select id="gradeLevel" required>
+        <option value="">Select Grade Level</option>
+        <option value="Grade 7">Grade 7</option>
+        <option value="Grade 8">Grade 8</option>
+        <option value="Grade 9">Grade 9</option>
+        <option value="Grade 10">Grade 10</option>
+        <option value="Grade 11">Grade 11</option>
+        <option value="Grade 12">Grade 12</option>
+      </select>
 
-        <select id="gradeLevel" required>
-            <option value="">Select Grade Level</option>
-<option value="Grade 7">Grade 7</option>
-<option value="Grade 8">Grade 8</option>
-<option value="Grade 9">Grade 9</option>
-<option value="Grade 10">Grade 10</option>
-<option value="Grade 11">Grade 11</option>
-<option value="Grade 12">Grade 12</option>
-        </select>
+      <input type="text" id="section" placeholder="Section" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <input type="password" id="confirmPassword"
+        placeholder="Confirm Password" required>
 
-        <input
-            type="text"
-            id="section"
-            placeholder="Section"
-            required
-        >
-
-        <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            required
-        >
-
-        <input
-            type="password"
-            id="confirmPassword"
-            placeholder="Confirm Password"
-            required
-        >
-
-        <button type="submit">
-            Create Account
-        </button>
-
+      <button type="submit">Create Account</button>
     </form>
 
-    <p id="message"></p>
+    <p id="message" role="status" aria-live="polite"></p>
 
     <div class="login">
-        Already have an account?
-        <a href="login.html">Log in</a>
+      Already have an account?
+      <a href="login.html">Log in</a>
     </div>
+  </main>
 
-</div>
+  <script type="module">
+    import { supabase } from "./supabase.js";
 
-<script type="module">
+    const signupForm = document.getElementById("signupForm");
+    const message = document.getElementById("message");
 
-import { supabase } from "./supabase.js";
+    signupForm.addEventListener("submit", async function(event) {
+      event.preventDefault();
 
-const signupForm = document.getElementById("signupForm");
-const message = document.getElementById("message");
+      const lrn = document.getElementById("lrn").value.trim();
+      const fullName = document.getElementById("fullName").value.trim();
+      const gradeLevel = document.getElementById("gradeLevel").value;
+      const section = document.getElementById("section").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
 
-signupForm.addEventListener("submit", async function(event) {
+      message.textContent = "";
+      message.style.color = "#ff8585";
 
-    event.preventDefault();
-
-    const lrn = document.getElementById("lrn").value.trim();
-    const fullName = document.getElementById("fullName").value.trim();
-    const gradeLevel = document.getElementById("gradeLevel").value;
-    const section = document.getElementById("section").value.trim();
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-
-    message.textContent = "";
-    message.style.color = "red";
-
-    if (!/^\d{12}$/.test(lrn)) {
+      if (!/^\d{12}$/.test(lrn)) {
         message.textContent = "LRN must be exactly 12 digits.";
         return;
-    }
+      }
 
-    if (password.length < 6) {
+      if (password.length < 6) {
         message.textContent = "Password must be at least 6 characters.";
         return;
-    }
+      }
 
-    if (password !== confirmPassword) {
+      if (password !== confirmPassword) {
         message.textContent = "Passwords do not match.";
         return;
-    }
+      }
 
-    message.textContent = "Creating account...";
-    message.style.color = "#333";
+      message.textContent = "Creating account...";
+      message.style.color = "#c7b5ff";
 
-    // Hidden email used only internally by Supabase
-    const internalEmail = `${lrn}@walkingelibraryhub.com`;
+      const internalEmail = `${lrn}@walkingelibraryhub.com`;
 
-    const { data, error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: internalEmail,
         password: password,
-
         options: {
-            data: {
-                full_name: fullName,
-                lrn: lrn,
-                grade_level: gradeLevel,
-                section: section,
-                role: "student"
-            }
+          data: {
+            full_name: fullName,
+            lrn: lrn,
+            grade_level: gradeLevel,
+            section: section,
+            role: "student"
+          }
         }
-    });
+      });
 
-    if (error) {
-
+      if (error) {
         console.error("Signup error:", error);
-
         message.textContent = error.message;
-        message.style.color = "red";
-
+        message.style.color = "#ff8585";
         return;
-    }
+      }
 
-    console.log("Account created:", data);
+      console.log("Account created:", data);
+      message.textContent = "Account created successfully!";
+      message.style.color = "#a7f3d0";
 
-    message.textContent = "Account created successfully!";
-    message.style.color = "green";
-
-    setTimeout(() => {
+      setTimeout(() => {
         window.location.href = "login.html";
-    }, 1500);
-
-});
-
-</script>
+      }, 1500);
+    });
+  </script>
 
 </body>
 </html>
