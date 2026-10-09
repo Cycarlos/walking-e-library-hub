@@ -76,3 +76,63 @@ img {
     background-attachment: scroll;
   }
 }
+
+/* FIX: Dark blue and violet login design */
+
+body {
+  color: #f7f5ff !important;
+  background-color: #090d2b !important;
+  background-image:
+    radial-gradient(ellipse at 15% 20%, #29256b 0%, transparent 48%),
+    radial-gradient(ellipse at 85% 75%, #34205f 0%, transparent 45%),
+    linear-gradient(145deg, #080c29, #171640, #0b1030) !important;
+  background-attachment: fixed;
+}
+
+/* Darken the login and signup panels */
+body > div,
+main,
+.auth-card,
+.login-card,
+.signup-card,
+.container,
+.card {
+  background-color: #171b49 !important;
+  color: #f7f5ff !important;
+  border: 1px solid rgba(164, 125, 255, 0.45);
+  border-radius: 20px;
+}
+
+/* Make headings and labels visible */
+h1, h2, h3, p, label, span {
+  color: #f0edff;
+}
+
+/* Form fields */
+input {
+  background-color: #0b1030 !important;
+  color: #ffffff !important;
+  border: 1px solid #7662bd !important;
+}
+
+input::placeholder {
+  color: #c2bddb !important;
+}
+
+/* Buttons */
+button {
+  background: linear-gradient(135deg, #315be8, #8654e9);
+  color: #ffffff !important;
+  border: none;
+  border-radius: 12px;
+}
+
+/* Links */
+a {
+  color: #c3a7ff;
+}
+
+/* Keep content readable on phones */
+img {
+  max-width: 100%;
+}
