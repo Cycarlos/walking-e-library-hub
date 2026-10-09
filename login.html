@@ -1,76 +1,110 @@
+
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Walking E-Library Hub — Login</title>
 
+  <link rel="stylesheet" href="style.css">
+
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       min-height: 100vh;
       display: grid;
       place-items: center;
+      padding: 24px 0;
       font-family: Arial, sans-serif;
-      background: #f3f6fb;
+      color: #f7f5ff;
+      background:
+        radial-gradient(ellipse at 15% 15%, rgba(87,70,210,.38), transparent 45%),
+        radial-gradient(ellipse at 85% 75%, rgba(130,55,220,.3), transparent 45%),
+        linear-gradient(145deg, #070b25, #17164b 55%, #0b1235);
     }
 
     .card {
-      width: min(420px, 92vw);
-      background: white;
+      width: min(520px, 92vw);
       padding: 32px;
-      border-radius: 18px;
-      box-shadow: 0 10px 35px rgba(0,0,0,.10);
+      color: #f7f5ff;
+      background: rgba(20, 24, 68, .96);
+      border: 1px solid rgba(164, 125, 255, .55);
+      border-top: 4px solid #9865ff;
+      border-radius: 22px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .3);
     }
 
     h1 {
       margin-top: 0;
+      color: #ffffff;
+      text-align: center;
+      font-size: clamp(25px, 5vw, 34px);
     }
 
-    input,
-    button {
+    .subtitle {
+      color: #c7b5ff;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    input, button {
+      display: block;
       width: 100%;
-      padding: 13px;
-      margin-top: 10px;
+      padding: 14px;
+      margin-top: 14px;
       border-radius: 10px;
-      border: 1px solid #ccd3df;
-      font-size: 15px;
+      font-size: 16px;
+    }
+
+    input {
+      color: #ffffff;
+      background: #0b1030;
+      border: 1px solid #625a99;
+    }
+
+    input::placeholder { color: #c2bddb; }
+
+    input:focus {
+      outline: 2px solid #9865ff;
+      outline-offset: 2px;
     }
 
     button {
       cursor: pointer;
       border: 0;
-      background: #1d4ed8;
       color: white;
+      font-weight: bold;
+      background: linear-gradient(110deg, #315be8, #8654e9);
     }
 
-    a {
-      color: #1d4ed8;
-    }
+    button:hover { filter: brightness(1.12); }
+
+    a { color: #c7b5ff; }
 
     #message {
       min-height: 24px;
-      margin-top: 12px;
+      margin-top: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .register {
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 25px 21px; }
     }
   </style>
 </head>
-  <link rel="stylesheet" href="style.css">
-
 <body>
-
   <main class="card">
-
     <h1>Walking E-Library Hub</h1>
-
-    <p>Student Login</p>
+    <p class="subtitle">Student Login</p>
 
     <form id="loginForm">
-
       <input
         id="lrn"
         type="text"
@@ -87,35 +121,28 @@
         required
       >
 
-      <button type="submit">
-        Log in
-      </button>
-
+      <button type="submit">Log in</button>
     </form>
 
-    <p id="message"></p>
+    <p id="message" role="status" aria-live="polite"></p>
 
-    <p>
+    <p class="register">
       Don't have an account?
       <a href="signup.html">Create one</a>
     </p>
-
   </main>
 
   <script type="module">
-
     import { supabase } from "./supabase.js";
 
     const form = document.querySelector("#loginForm");
     const message = document.querySelector("#message");
 
-    // Check if already logged in
     const {
       data: { session }
     } = await supabase.auth.getSession();
 
     if (session) {
-
       const { data: profile } = await supabase
         .from("profiles")
         .select("role")
@@ -123,133 +150,77 @@
         .single();
 
       window.location.replace(
-        profile?.role === "admin"
-          ? "admin.html"
-          : "dashboard.html"
+        profile?.role === "admin" ? "admin.html" : "dashboard.html"
       );
     }
 
     form.addEventListener("submit", async (event) => {
-
       event.preventDefault();
 
       const lrn = document.querySelector("#lrn").value.trim();
       const password = document.querySelector("#password").value;
 
       message.textContent = "Signing in...";
-      message.style.color = "#333";
+      message.style.color = "#c7b5ff";
 
-      // Check LRN format
       if (!/^\d{12}$/.test(lrn)) {
-
-        message.textContent =
-          "LRN must be exactly 12 digits.";
-
-        message.style.color = "red";
-
+        message.textContent = "LRN must be exactly 12 digits.";
+        message.style.color = "#ff8585";
         return;
       }
 
-      // Same hidden email format used during signup
-      const internalEmail =
-        `${lrn}@walkingelibraryhub.com`;
+      const internalEmail = `${lrn}@walkingelibraryhub.com`;
 
-      // LOGIN
-      const {
-        data,
-        error
-      } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email: internalEmail,
-        password: password
+        password
       });
 
       if (error) {
-
         console.error("Login error:", error);
-
-        message.textContent =
-          "Incorrect LRN or password.";
-
-        message.style.color = "red";
-
+        message.textContent = "Incorrect LRN or password.";
+        message.style.color = "#ff8585";
         return;
       }
 
-      // Load profile after successful login
-      const {
-        data: profile,
-        error: profileError
-      } = await supabase
+      const { data: profile, error: profileError } = await supabase
         .from("profiles")
-        .select(
-          "id, full_name, role, lrn, grade_level, section"
-        )
+        .select("id, full_name, role, lrn, grade_level, section")
         .eq("id", data.user.id)
         .single();
 
       if (profileError || !profile) {
-
-        console.error(
-          "Profile error:",
-          profileError
-        );
-
-        message.textContent =
-          "Could not load your account profile.";
-
-        message.style.color = "red";
-
+        console.error("Profile error:", profileError);
+        message.textContent = "Could not load your account profile.";
+        message.style.color = "#ff8585";
         return;
       }
 
-      // Record login session
-      const {
-        data: sessionRecord,
-        error: sessionError
-      } = await supabase.rpc(
-        "create_login_session"
-      );
+      const { data: sessionRecord, error: sessionError } =
+        await supabase.rpc("create_login_session");
 
       if (sessionError) {
-
-        console.error(
-          "Session recording error:",
-          sessionError
-        );
-
+        console.error("Session recording error:", sessionError);
         message.textContent =
           "Login worked, but the session could not be recorded.";
-
-        message.style.color = "orange";
-
+        message.style.color = "#ffc078";
         return;
       }
 
-      // Save session ID
       localStorage.setItem(
         "walking_e_library_session_id",
         sessionRecord
       );
 
-      message.textContent =
-        "Login successful!";
+      message.textContent = "Login successful!";
+      message.style.color = "#a7f3d0";
 
-      message.style.color = "green";
-
-      // Redirect
       setTimeout(() => {
-
-        if (profile.role === "admin") {
-          window.location.replace("admin.html");
-        } else {
-          window.location.replace("dashboard.html");
-        }
-
+        window.location.replace(
+          profile.role === "admin" ? "admin.html" : "dashboard.html"
+        );
       }, 500);
-
     });
-
   </script>
-
 </body>
 </html>
