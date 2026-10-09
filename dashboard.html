@@ -3,154 +3,217 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Walking E-Library Hub — Dashboard</title>
+  <link rel="stylesheet" href="style.css">
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
+      min-height: 100vh;
       font-family: Arial, sans-serif;
-      background: #f3f6fb;
+      color: #f7f5ff;
+      background:
+        radial-gradient(ellipse at 15% 15%, rgba(87,70,210,.38), transparent 42%),
+        radial-gradient(ellipse at 85% 65%, rgba(130,55,220,.25), transparent 40%),
+        linear-gradient(145deg, #070b25, #17164b 55%, #0b1235);
+      background-attachment: fixed;
     }
 
     header {
-      background: #111827;
-      color: white;
+      background: rgba(9,13,43,.9);
+      border-bottom: 1px solid rgba(160,125,255,.35);
       padding: 18px 24px;
-
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     main {
+      width: 100%;
       max-width: 900px;
       margin: 30px auto;
       padding: 0 18px;
     }
 
     .card {
-      background: white;
+      background: rgba(23,27,73,.95);
+      border: 1px solid rgba(160,125,255,.4);
       padding: 28px;
-      border-radius: 16px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-      margin-bottom: 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 35px rgba(0,0,0,.22);
+      margin-bottom: 22px;
+      overflow-wrap: anywhere;
     }
 
-    h1 {
-      margin-top: 0;
+    .profile-heading {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .school-logo {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      margin-bottom: 12px;
+    }
+
+    h1, h2 { color: #e4d7ff; }
+    h1 { margin: 0 0 12px; }
+    h2 { margin-top: 0; }
+
+    #welcome {
+      font-size: 18px;
+      font-weight: bold;
+      color: #cbb8ff;
     }
 
     .info {
-      line-height: 1.8;
+      line-height: 2.2;
+      padding: 18px;
+      background: rgba(8,12,39,.6);
+      border-radius: 14px;
+      border: 1px solid rgba(160,125,255,.2);
+    }
+
+    .info strong { color: #c7b5ff; }
+    .info span { color: #fff; }
+
+    .library-description {
+      color: #d6d2ed;
+      line-height: 1.7;
     }
 
     button {
-      padding: 10px 15px;
-      border: 0;
-      border-radius: 9px;
+      padding: 11px 16px;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      background: linear-gradient(135deg,#315be8,#8654e9);
+      font-weight: bold;
       cursor: pointer;
+    }
+
+    button:hover { filter: brightness(1.15); }
+
+    footer {
+      text-align: center;
+      padding: 10px 18px 25px;
+      color: #c2bddb;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 16px; }
+      main { margin: 20px auto; padding: 0 12px; }
+      .card { padding: 20px; }
+      .school-logo { width: 100px; height: 100px; }
+      .info { padding: 14px; }
     }
   </style>
 </head>
-  <link rel="stylesheet" href="style.css">
 
 <body>
+  <header>
+    <strong>📚 Walking E-Library Hub</strong>
+    <button id="logout" type="button">Log out</button>
+  </header>
 
-<header>
-  <strong>Walking E-Library Hub</strong>
-  <button id="logout">Log out</button>
-</header>
+  <main>
+    <section class="card">
+      <div class="profile-heading">
+        <img
+          src="school-logo.png"
+          alt="School Logo"
+          class="school-logo"
+        >
+        <h1>Student Dashboard</h1>
+        <p>Your learning journey starts here.</p>
+      </div>
 
-<main>
+      <p id="welcome">Loading your account...</p>
 
-  <section class="card">
+      <div class="info">
+        <strong>LRN:</strong>
+        <span id="lrn">Loading...</span><br>
 
-  <div style="text-align:center; margin-bottom:20px;">
-  <img src="school-logo.png"
-       alt="School Logo"
-       style="width:120px; height:120px; object-fit:contain;">
-  <h1>Student Dashboard</h1>
-</div>
+        <strong>Grade Level:</strong>
+        <span id="gradeLevel">Loading...</span><br>
 
-    <p id="welcome">Loading...</p>
+        <strong>Section:</strong>
+        <span id="section">Loading...</span><br>
 
-    <div class="info">
-      <strong>LRN:</strong>
-      <span id="lrn">Loading...</span>
-      <br>
+        <strong>Account:</strong>
+        <span id="role">Loading...</span>
+      </div>
+    </section>
 
-      <strong>Grade Level:</strong>
-      <span id="gradeLevel">Loading...</span>
-      <br>
+    <section class="card">
+      <h2>📖 Your E-Library</h2>
+      <p class="library-description">
+        Welcome to your digital learning space! Your books,
+        reviewers, and other learning resources will be available
+        here as they are added to the E-Library Hub.
+      </p>
+      <p class="library-description">
+        <strong>Keep learning. Keep growing.</strong>
+      </p>
+    </section>
+  </main>
 
-      <strong>Section:</strong>
-      <span id="section">Loading...</span>
-      <br>
+  <footer>
+    Walking E-Library Hub · Learn anytime, grow every day.
+  </footer>
 
-      <strong>Account:</strong>
-      <span id="role">Loading...</span>
-    </div>
+  <script type="module">
+    import {
+      requireAuth,
+      getCurrentProfile,
+      signOut
+    } from "./auth.js";
 
-  </section>
+    try {
+      const user = await requireAuth();
 
-  <section class="card">
+      if (!user) {
+        throw new Error("Not authenticated");
+      }
 
-    <h2>Your E-Library</h2>
+      const profile = await getCurrentProfile();
 
-    <p>
-      This protected area is where your books, reviewers,
-      and learning resources can be placed.
-    </p>
+      if (!profile) {
+        document.getElementById("welcome").textContent =
+          "Could not load your profile. Please log in again.";
+        throw new Error("Profile not found");
+      }
 
-  </section>
+      document.getElementById("welcome").textContent =
+        `Welcome, ${profile.full_name || "Student"}!`;
 
-</main>
+      document.getElementById("lrn").textContent =
+        profile.lrn || "Not available";
 
-<script type="module">
+      document.getElementById("gradeLevel").textContent =
+        profile.grade_level || "Not available";
 
-import { requireAuth, getCurrentProfile, signOut } from "./auth.js";
+      document.getElementById("section").textContent =
+        profile.section || "Not available";
 
-const user = await requireAuth();
+      document.getElementById("role").textContent =
+        profile.role || "student";
 
-if (!user) {
-  throw new Error("Not authenticated");
-}
+    } catch (error) {
+      console.error("Dashboard loading error:", error);
+      document.getElementById("welcome").textContent =
+        "Unable to load your account information. Please try logging in again.";
+    }
 
-const profile = await getCurrentProfile();
-
-if (!profile) {
-  document.getElementById("welcome").textContent =
-    "Could not load your profile.";
-
-  throw new Error("Profile not found");
-}
-
-document.getElementById("welcome").textContent =
-  `Welcome, ${profile.full_name || "Student"}!`;
-
-document.getElementById("lrn").textContent =
-  profile.lrn || "Not available";
-
-document.getElementById("gradeLevel").textContent =
-  profile.grade_level || "Not available";
-
-document.getElementById("section").textContent =
-  profile.section || "Not available";
-
-document.getElementById("role").textContent =
-  profile.role || "student";
-
-document.getElementById("logout").addEventListener(
-  "click",
-  signOut
-);
-
-</script>
-
+    document.getElementById("logout").addEventListener("click", () => {
+      signOut();
+    });
+  </script>
 </body>
 </html>
