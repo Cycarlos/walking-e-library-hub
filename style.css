@@ -136,16 +136,51 @@ a {
 img {
   max-width: 100%;
 }
-/* Technology glow accents */
+
+/* Technology glow accents + circuit lines */
 body {
   background-image:
+    /* Glowing circuit connection points */
     radial-gradient(circle at 8% 20%, #00d9ff 0 2px, transparent 4px),
     radial-gradient(circle at 92% 30%, #7b83ff 0 2px, transparent 4px),
     radial-gradient(circle at 12% 75%, #00d9ff 0 2px, transparent 4px),
     radial-gradient(circle at 88% 80%, #9865ff 0 2px, transparent 4px),
+
+    /* Horizontal and vertical circuit paths */
+    linear-gradient(90deg, transparent 0 48%, rgba(0,217,255,.65) 49%, rgba(0,217,255,.65) 50%, transparent 51%),
+    linear-gradient(0deg, transparent 0 48%, rgba(0,217,255,.55) 49%, rgba(0,217,255,.55) 50%, transparent 51%),
+
+    /* Angled circuit paths */
+    linear-gradient(135deg, transparent 48%, rgba(152,101,255,.65) 49%, rgba(152,101,255,.65) 50%, transparent 51%),
+
+    /* Your original galaxy background */
     radial-gradient(ellipse at 15% 15%, rgba(87,70,210,.38), transparent 42%),
     radial-gradient(ellipse at 85% 65%, rgba(130,55,220,.25), transparent 40%),
-    linear-gradient(145deg, #070b25, #17164b 55%, #0b1235);
+    linear-gradient(145deg, #070b25, #17164b 55%, #0b1235) !important;
+
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    150px 130px,
+    150px 130px,
+    180px 180px,
+    auto,
+    auto,
+    auto;
+
+  background-position:
+    center, center, center, center,
+    0 0, 0 0, 20px 20px,
+    center, center, center;
+
   background-attachment: fixed;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
+}
+
+@media (max-width: 600px) {
+  body {
+    background-attachment: scroll;
+  }
 }
