@@ -136,3 +136,16 @@ a {
 img {
   max-width: 100%;
 }
+/* Technology glow accents */
+body {
+  background-image:
+    radial-gradient(circle at 8% 20%, #00d9ff 0 2px, transparent 4px),
+    radial-gradient(circle at 92% 30%, #7b83ff 0 2px, transparent 4px),
+    radial-gradient(circle at 12% 75%, #00d9ff 0 2px, transparent 4px),
+    radial-gradient(circle at 88% 80%, #9865ff 0 2px, transparent 4px),
+    radial-gradient(ellipse at 15% 15%, rgba(87,70,210,.38), transparent 42%),
+    radial-gradient(ellipse at 85% 65%, rgba(130,55,220,.25), transparent 40%),
+    linear-gradient(145deg, #070b25, #17164b 55%, #0b1235);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
