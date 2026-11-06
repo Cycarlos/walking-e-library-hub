@@ -184,12 +184,13 @@
         password
       });
 
-      if (error) {
-        console.error("Login error:", error);
-        message.textContent = "Incorrect LRN or password.";
-        message.style.color = "#ff8585";
-        return;
-      }
+    if (error) {
+  console.error("Login error:", error);
+  message.textContent = error.message;
+  message.style.color = "#ff8585";
+  return;
+}
+
 
       const { data: profile, error: profileError } = await supabase
         .from("profiles")
